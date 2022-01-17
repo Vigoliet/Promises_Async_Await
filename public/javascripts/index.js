@@ -1,22 +1,46 @@
 'use strict'
 
-//task 2
+
 
 console.log('Hello from index!');
 
-const fetchNames = fetch('/data')
-    .then((response) => response.json()
-    .then(res => Load(res)));
+// task 4 & 5
 
-const Load = (res) => {
-    console.log(res[0]);
+const fetchData = async() => {
+    const response = await fetch('/data')
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+    const data = await response.json();
+    return data;
+}
 
-    res.forEach((element => {
+fetchData().then(data =>{
+    funcLoad(data);
+});
+
+const funcLoad = (data) => {
+    console.log(data);
+    data.forEach((element => {
         const li = document.createElement('li');
         li.textContent = element;
         document.getElementById('list').appendChild(li);
-    }));
+    }))
 }
+
+//task 2
+
+// const fetchNames = fetch('/data')
+//     .then((response) => response.json()
+//     .then(res => Load(res)));
+
+// const Load = (res) => {
+//     res.forEach((element => {
+// const li = document.createElement('li');
+// li.textContent = element;
+// document.getElementById('list').appendChild(li);
+//     }));
+// }
 
 // task 1
 
